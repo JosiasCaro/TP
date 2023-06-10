@@ -1,8 +1,3 @@
-Integrantes del TP:
--Fiorella Aquino
--Ignacio Gomez
--Agustin Chazarreta
-
 Consignas implementadas: 
 -Crear y listar estudiantes.
 -Buscar estudiantes por nombre => lista ordenada por nombres.

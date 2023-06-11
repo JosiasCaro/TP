@@ -2,17 +2,17 @@
 #include <string.h>
 #include <stdio.h>
 
-struct estudiante{
+typedef struct Estudiante{
     char nombreEstudiante[30];
     char apellidoEstudiante[30];
     int edad;
-    struct estudiante *sig;
-    struct materia *listaMaterias;
-};
+    struct Estudiante *sig;
+    struct Materia *listaMaterias;
+} Estudiante;
 
 // "Crear y listar estudiantes"
-void listarEstudiante(struct estudiante **primero, char nombreEstudiante[30], char apellidoEstudiante[30], int edad){
-    struct estudiante *nuevoEstudiante = malloc(sizeof(struct estudiante));
+void listarEstudiante(Estudiante**primero, char nombreEstudiante[30], char apellidoEstudiante[30], int edad){
+    Estudiante *nuevoEstudiante = malloc(sizeof(Estudiante));
     strcpy(nuevoEstudiante->nombreEstudiante, nombreEstudiante);
     strcpy(nuevoEstudiante->apellidoEstudiante, apellidoEstudiante);
     nuevoEstudiante->edad = edad;
@@ -27,8 +27,7 @@ void listarEstudiante(struct estudiante **primero, char nombreEstudiante[30], ch
             nuevoEstudiante->sig = *primero;
             *primero = nuevoEstudiante;
         } else{
-            struct estudiante *cursor = (*primero);
-
+            Estudiante *cursor = (*primero);
             while(cursor->sig != NULL && strcmp(nombreEstudiante,cursor->sig->nombreEstudiante) > 0) {
                 cursor = cursor->sig;
             }
@@ -39,8 +38,8 @@ void listarEstudiante(struct estudiante **primero, char nombreEstudiante[30], ch
 }
 
 // "Buscar estudiantes por nombre y apellido"
-struct  estudiante *buscarPorNombreYApellido (struct estudiante *primero, char nombreEstudiante[30], char apellidoEstudiante[30]){
-    struct estudiante *actual = primero;
+Estudiante *buscarPorNombreYApellido (Estudiante *primero, char nombreEstudiante[30], char apellidoEstudiante[30]){
+    Estudiante *actual = primero;
 
     while(actual != NULL){
         //el strcmp "larga" 0 cuando lo encuentra, y 1 sino.
@@ -55,9 +54,9 @@ struct  estudiante *buscarPorNombreYApellido (struct estudiante *primero, char n
     return NULL;
 }
 //funcion para buscar estudiantes por rango etario
-struct estudiante *buscarPorRangoEtario(struct estudiante *lista, int edadMin, int edadMax){
+Estudiante *buscarPorRangoEtario(Estudiante *lista, int edadMin, int edadMax){
 
-    struct estudiante *cursor = lista;
+    Estudiante *cursor = lista;
     int detener = 0;
     int masDeUnEstudiante = 0;
 
@@ -85,14 +84,14 @@ struct estudiante *buscarPorRangoEtario(struct estudiante *lista, int edadMin, i
     return NULL;
 }
 
-void imprimirListaEstudiantes(struct estudiante *lista){
+void imprimirListaEstudiantes(Estudiante *lista){
     while(lista!= NULL){
         printf("%s %s \n", lista->nombreEstudiante, lista->apellidoEstudiante);
         lista = lista->sig;
     }
 }
 
-int cantidadDeEstudiantes(struct estudiante *lista) {
+int cantidadDeEstudiantes(Estudiante *lista) {
     int contador = 0;
     while(lista != NULL){
         contador++;

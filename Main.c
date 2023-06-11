@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "Materia.c"
 
-void menu(struct estudiante *lista, struct materia *listaMaterias) {
+void menu(Estudiante *lista, Materia *listaMaterias) {
     int opcion;
 
     char nombreEstudiante[30];
@@ -70,7 +70,7 @@ void menu(struct estudiante *lista, struct materia *listaMaterias) {
                 fflush(stdin);
                 printf("Inserte el apellido del estudiante a buscar:\n");
                 scanf("%[^\n]s",apellidoABuscar);
-                struct estudiante *temporal20 = NULL;
+                Estudiante *temporal20 = NULL;
                 temporal20 = buscarPorNombreYApellido(lista, nombreABuscar, apellidoABuscar);
                 infoEstudiante(temporal20,nombreABuscar,apellidoABuscar);
                 break;
@@ -101,7 +101,7 @@ void menu(struct estudiante *lista, struct materia *listaMaterias) {
 
             case 7:
                 printf( "\n" );
-                struct estudiante *temp = NULL;
+                Estudiante *temp = NULL;
                 fflush(stdin);
                 printf("Inserte nombre del estudiante\n");
                 scanf("%[^\n]s", nombreEstudianteAs);
@@ -135,7 +135,7 @@ void menu(struct estudiante *lista, struct materia *listaMaterias) {
                 fflush(stdin);
                 printf("Nota de %s %s en %s:\n", nombreABuscar, apellidoABuscar, nombreMateria);
                 scanf("%d", &notaMateria);
-                struct estudiante *temp2 = NULL;
+                Estudiante *temp2 = NULL;
                 temp2 = buscarPorNombreYApellido(lista, nombreABuscar, apellidoABuscar);
                 rendirMateria(&temp2, nombreABuscar, apellidoABuscar, nombreMateria, notaMateria);
                 break;
@@ -162,10 +162,10 @@ void menu(struct estudiante *lista, struct materia *listaMaterias) {
 }
 
 int main(){
-    struct estudiante *lista = NULL;
-    lista = (struct estudiante *) veinteEstudiantesTest(lista);
-    struct materia *listaMateria = NULL;
-    listaMateria = (struct materia*) cincoMateriasTest(listaMateria);
+    Estudiante *lista = NULL;
+    lista = (Estudiante *) veinteEstudiantesTest(lista);
+    Materia *listaMateria = NULL;
+    listaMateria = (Materia*) cincoMateriasTest(listaMateria);
     printf("\nPara comenzar a operar inserte el numero de la opcion con la cual desee interactuar");
     menu(lista, listaMateria);
 }

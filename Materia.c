@@ -3,18 +3,18 @@
 #include <stdio.h>
 #include "Estudiante.c"
 
-struct materia{
+typedef struct Materia{
     char nombreMateria[30];
     char nombreMateriaCorrelativa[30];
     int notaMateria;
     char estadoMateria[30];
-    struct materia *sig;
-};
+    struct Materia *sig;
+} Materia;
 
 // as = asignar materia
-void asignarMateria(struct estudiante *primero, char nombreMateria[30], char nombreMateriaCorrelativa[30]){
+void asignarMateria(Estudiante *primero, char nombreMateria[30], char nombreMateriaCorrelativa[30]){
 
-    struct materia* as = malloc(sizeof(struct materia));
+    struct Materia *as = malloc(sizeof(Materia));
     strcpy(as->nombreMateria, nombreMateria);
     strcpy(as->nombreMateriaCorrelativa, nombreMateriaCorrelativa);
     strcpy(as->estadoMateria, "Cursando");
@@ -27,7 +27,7 @@ void asignarMateria(struct estudiante *primero, char nombreMateria[30], char nom
         printf("\n%s es la primera materia de %s %s, por lo que no tiene correlativa\n", as->nombreMateria, primero->nombreEstudiante, primero->apellidoEstudiante);
     }
     else{
-        struct materia*nodo = primero->listaMaterias;
+        Materia *nodo = primero->listaMaterias;
         int encontrado = 0;
         while(nodo != NULL && encontrado == 0){
             if(strcmp(nodo->nombreMateria, nombreMateriaCorrelativa) == 0){
@@ -50,21 +50,21 @@ void asignarMateria(struct estudiante *primero, char nombreMateria[30], char nom
             printf("La materia correlativa %s no existe, se va a asumir que %s\nno tiene materia correlativa\n", as->nombreMateriaCorrelativa, as->nombreMateria);
             strcpy(as->nombreMateriaCorrelativa, "No tiene");
 
-            struct materia*nodo2 = primero->listaMaterias;
+            Materia *nodo2 = primero->listaMaterias;
             while(nodo2->sig != NULL){
                 nodo2 = nodo2->sig;
             }
             nodo2->sig = as;
         }
 
-        struct materia* nodo2 = primero->listaMaterias;
+        Materia *nodo2 = primero->listaMaterias;
 
     }
 }
 
 // "Crear y listar materias"
-void listarMateria(struct materia **primera, char nombreMateria[30]){
-    struct materia *nuevaMateria = malloc(sizeof(struct materia));
+void listarMateria(Materia **primera, char nombreMateria[30]){
+    Materia *nuevaMateria = malloc(sizeof(Materia));
     strcpy(nuevaMateria->nombreMateria, nombreMateria);
     nuevaMateria->sig = NULL;
 
@@ -72,7 +72,7 @@ void listarMateria(struct materia **primera, char nombreMateria[30]){
         *primera = nuevaMateria;
     }
     else{
-        struct materia *cursor = (*primera);
+        Materia *cursor = (*primera);
 
         while(cursor->sig != NULL) {
             cursor = cursor->sig;
@@ -81,7 +81,7 @@ void listarMateria(struct materia **primera, char nombreMateria[30]){
     }
 }
 
-struct materia *buscarMateria(struct materia *lista, char nombreMateria[30]){
+Materia *buscarMateria(Materia *lista, char nombreMateria[30]){
     while (lista != NULL){
         if(strcmp(lista->nombreMateria,nombreMateria) == 0){
             return lista;
@@ -93,9 +93,9 @@ struct materia *buscarMateria(struct materia *lista, char nombreMateria[30]){
     return NULL;
 }
 
-void rendirMateria(struct estudiante **lista, char nombreEstudiante[30], char apellidoEstudiante[30] ,char nombreMateria[30], int nota){
-    struct estudiante *actualEst = buscarPorNombreYApellido(*lista, nombreEstudiante, apellidoEstudiante);
-    struct materia *actualMat = buscarMateria(actualEst->listaMaterias, nombreMateria);
+void rendirMateria(Estudiante **lista, char nombreEstudiante[30], char apellidoEstudiante[30] ,char nombreMateria[30], int nota){
+    Estudiante *actualEst = buscarPorNombreYApellido(*lista, nombreEstudiante, apellidoEstudiante);
+    Materia *actualMat = buscarMateria(actualEst->listaMaterias, nombreMateria);
 
     if(nota >= 4 && nota <= 10){
         actualMat->notaMateria = nota;
@@ -114,9 +114,9 @@ void rendirMateria(struct estudiante **lista, char nombreEstudiante[30], char ap
     }
 }
 
-void calcularPromedio (struct estudiante **lista, char nombreEstudiante[30], char apellidoEstudiante[30]){
-    struct estudiante *actualEst = buscarPorNombreYApellido(*lista, nombreEstudiante, apellidoEstudiante);
-    struct materia *listaMaterias = actualEst->listaMaterias;
+void calcularPromedio (Estudiante **lista, char nombreEstudiante[30], char apellidoEstudiante[30]){
+    Estudiante *actualEst = buscarPorNombreYApellido(*lista, nombreEstudiante, apellidoEstudiante);
+    Materia *listaMaterias = actualEst->listaMaterias;
     int cantidadMaterias = 0;
     int notas = 0;
     while(listaMaterias != NULL){
@@ -130,12 +130,12 @@ void calcularPromedio (struct estudiante **lista, char nombreEstudiante[30], cha
 }
 
 //Imprime la informacion del estudiante y las materias asociadas al mismo
-struct estudiante *infoEstudiante(struct estudiante *primero, char nombreEstudiante[30],char apellidoEstudiante[30]){
-    struct estudiante *actual = primero;
+Estudiante *infoEstudiante(struct estudiante *primero, char nombreEstudiante[30],char apellidoEstudiante[30]){
+    Estudiante *actual = primero;
     while(actual != NULL){
         if((strcmp(actual->nombreEstudiante,nombreEstudiante) == 0 )&& (strcmp(actual->apellidoEstudiante,apellidoEstudiante) == 0)){
             //printf("Materia encontrada:%s\n",actual->lista_materias->nombreDeLaMateria);
-            struct materia *nodo = actual->listaMaterias;
+            Materia *nodo = actual->listaMaterias;
             printf("\nMaterias de %s:\n\n", actual->nombreEstudiante);
             while(nodo != NULL){
                 printf("Materia: %s, correlativa: %s, estado: %s, nota: %d\n", nodo->nombreMateria, nodo->nombreMateriaCorrelativa, nodo->estadoMateria, nodo->notaMateria);
@@ -149,17 +149,17 @@ struct estudiante *infoEstudiante(struct estudiante *primero, char nombreEstudia
 }
 
 
-void imprimirListaMaterias(struct materia *lista){
+void imprimirListaMaterias(Materia *lista){
     while(lista!=NULL){
         printf("%s\n", lista->nombreMateria);
         lista = lista->sig;
     }
 }
 
-void imprimirDatos(struct estudiante *actual, int i, int b){
+void imprimirDatos(Estudiante *actual, int i, int b){
 
     printf("[%d] Nombre del alumno:%s %s    Edad del alumno: %d\n",i, actual->nombreEstudiante, actual->apellidoEstudiante, actual->edad);
-    struct materia *materiaActual = actual->listaMaterias;
+    Materia *materiaActual = actual->listaMaterias;
     while(materiaActual != NULL){
         printf("-----------------------------------------------\n");
         printf("[%d] \n",b);
@@ -176,9 +176,9 @@ void imprimirDatos(struct estudiante *actual, int i, int b){
     }
 }
 
-void imprimirLista(struct estudiante *lista){
+void imprimirLista(Estudiante *lista){
     int i=1,b=1;
-    struct estudiante *actual;
+    Estudiante *actual;
     actual = lista;
 
     int cantidad = cantidadDeEstudiantes(lista);
@@ -225,8 +225,8 @@ void imprimirLista(struct estudiante *lista){
 }
 
 
-struct estudiante *veinteEstudiantesTest(struct estudiante* lista){
-    struct estudiante *lista20 = lista;
+Estudiante *veinteEstudiantesTest(Estudiante* lista){
+    Estudiante *lista20 = lista;
     listarEstudiante( &lista20, "Estudiante1", "Apellido1", 18);
     listarEstudiante( &lista20, "Estudiante2", "Apellido2", 19);
     listarEstudiante( &lista20, "Estudiante3", "Apellido3", 20);
@@ -250,8 +250,8 @@ struct estudiante *veinteEstudiantesTest(struct estudiante* lista){
     return lista20;
 }
 
-struct materia *cincoMateriasTest(struct materia* lista){
-    struct materia *listaMaterias = lista;
+Materia *cincoMateriasTest(Materia* lista){
+    Materia *listaMaterias = lista;
     listarMateria(&listaMaterias,"Materia Uno");
     listarMateria(&listaMaterias,"Materia Dos");
     listarMateria(&listaMaterias,"Materia Tres");

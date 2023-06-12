@@ -45,11 +45,9 @@ void menu(Estudiante *lista, Materia *listaMaterias) {
         switch (opcion){
             case 1:
                 printf( "\n" );
-                fflush(stdin);
                 printf("Inserte el nombre del estudiante:\n");
                 scanf("%s",nombreEstudiante);
                 printf("Inserte el apellido del estudiante:\n");
-                fflush(stdin);
                 scanf("%s",apellidoEstudiante);
                 printf("Inserte la edad del estudiante\n");
                 scanf("%d",&edadEstudiante);
@@ -58,35 +56,29 @@ void menu(Estudiante *lista, Materia *listaMaterias) {
 
             case 2:
                 printf( "\n" );
-                fflush(stdin);
                 imprimirListaEstudiantes(lista);
                 break;
 
             case 3:
-                fflush(stdin);
                 printf( "\n" );
                 printf("Inserte el nombre del estudiante a buscar:\n");
-                scanf("%[^\n]s",nombreABuscar);
-                fflush(stdin);
+                scanf("%s",nombreABuscar);
                 printf("Inserte el apellido del estudiante a buscar:\n");
-                scanf("%[^\n]s",apellidoABuscar);
+                scanf("%s",apellidoABuscar);
                 Estudiante *temporal20 = NULL;
                 temporal20 = buscarPorNombreYApellido(lista, nombreABuscar, apellidoABuscar);
                 infoEstudiante(temporal20,nombreABuscar,apellidoABuscar);
                 break;
 
             case 4:
-                fflush(stdin);
                 printf("\nInserte edad minima:\n");
                 scanf("%d",&edadMin);
-                fflush(stdin);
                 printf("\nInserte edad maxima\n");
                 scanf("%d",&edadMax);
                 buscarPorRangoEtario(lista, edadMin, edadMax);
                 break;
 
             case 5:
-                fflush(stdin);
                 printf( "\n");
                 printf("Inserte nombre de la materia a listar:\n");
                 scanf("%s",nombreMateriaNueva);
@@ -95,44 +87,34 @@ void menu(Estudiante *lista, Materia *listaMaterias) {
 
             case 6:
                 printf( "\n" );
-                fflush(stdin);
                 imprimirListaMaterias(listaMaterias);
                 break;
 
             case 7:
                 printf( "\n" );
                 Estudiante *temp = NULL;
-                fflush(stdin);
                 printf("Inserte nombre del estudiante\n");
-                scanf("%[^\n]s", nombreEstudianteAs);
-                fflush(stdin);
+                scanf("%s", nombreEstudianteAs);
                 printf("Inserte apellido del estudiante\n");
-                scanf("%[^\n]s",apellidoEstudianteAs);
-                fflush(stdin);
+                scanf("%s",apellidoEstudianteAs);
                 temp = buscarPorNombreYApellido(lista,nombreEstudianteAs,apellidoEstudianteAs);
                 if(temp != 0){
-                    fflush(stdin);
                     printf("Inserte nombre de la materia\n");
-                    scanf("%[^\n]s",nombreMateria);
-                    fflush(stdin);
+                    scanf("%s",nombreMateria);
                     printf("Inserte nombre de la materia correlativa\n");
-                    scanf("%[^\n]s",nombreMateriaCorrelativa);
+                    scanf("%s",nombreMateriaCorrelativa);
                     asignarMateria(temp,nombreMateria,nombreMateriaCorrelativa);
                 }
 
                 break;
 
             case 8:
-                fflush(stdin);
                 printf("Inserte nombre del alumno\n");
-                scanf("%[^\n]s", nombreABuscar);
-                fflush(stdin);
+                scanf("%s", nombreABuscar);
                 printf("Inserte apellido del alumno\n");
-                scanf("%[^\n]s", apellidoABuscar);
-                fflush(stdin);
+                scanf("%s", apellidoABuscar);
                 printf("Inserte nombre de la materia\n");
-                scanf("%[^\n]s",nombreMateria);
-                fflush(stdin);
+                scanf("%s",nombreMateria);
                 printf("Nota de %s %s en %s:\n", nombreABuscar, apellidoABuscar, nombreMateria);
                 scanf("%d", &notaMateria);
                 Estudiante *temp2 = NULL;
@@ -141,18 +123,14 @@ void menu(Estudiante *lista, Materia *listaMaterias) {
                 break;
 
             case 9:
-                fflush(stdin);
                 imprimirLista(lista);
                 break;
 
             case 10:
-                fflush(stdin);
                 printf("Inserte nombre del alumno\n");
-                scanf("%[^\n]s", nombreABuscar);
-                fflush(stdin);
+                scanf("%s", nombreABuscar);
                 printf("Inserte apellido del alumno\n");
-                scanf("%[^\n]s", apellidoABuscar);
-                fflush(stdin);
+                scanf("%s", apellidoABuscar);
                 calcularPromedio(&lista,nombreABuscar,apellidoABuscar);
                 break;
 

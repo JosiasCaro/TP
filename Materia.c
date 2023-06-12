@@ -130,7 +130,7 @@ void calcularPromedio (Estudiante **lista, char nombreEstudiante[30], char apell
 }
 
 //Imprime la informacion del estudiante y las materias asociadas al mismo
-Estudiante *infoEstudiante(struct estudiante *primero, char nombreEstudiante[30],char apellidoEstudiante[30]){
+Estudiante *infoEstudiante(Estudiante *primero, char nombreEstudiante[30],char apellidoEstudiante[30]){
     Estudiante *actual = primero;
     while(actual != NULL){
         if((strcmp(actual->nombreEstudiante,nombreEstudiante) == 0 )&& (strcmp(actual->apellidoEstudiante,apellidoEstudiante) == 0)){

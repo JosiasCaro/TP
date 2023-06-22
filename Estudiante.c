@@ -21,12 +21,11 @@ void listarEstudiante(Estudiante**primero, char nombreEstudiante[30], char apell
 
     if((*primero) == NULL){
         *primero = nuevoEstudiante;
-    }
-    else{
+    }else{
         if(strcmp(nombreEstudiante,(*primero)->nombreEstudiante) < 0){
             nuevoEstudiante->sig = *primero;
             *primero = nuevoEstudiante;
-        } else{
+        }else{
             Estudiante *cursor = (*primero);
             while(cursor->sig != NULL && strcmp(nombreEstudiante,cursor->sig->nombreEstudiante) > 0) {
                 cursor = cursor->sig;
@@ -40,19 +39,18 @@ void listarEstudiante(Estudiante**primero, char nombreEstudiante[30], char apell
 // "Buscar estudiantes por nombre y apellido"
 Estudiante *buscarPorNombreYApellido (Estudiante *primero, char nombreEstudiante[30], char apellidoEstudiante[30]){
     Estudiante *actual = primero;
-
     while(actual != NULL){
         //el strcmp "larga" 0 cuando lo encuentra, y 1 sino.
         if((strcmp(actual->nombreEstudiante,nombreEstudiante) == 0 ) &&
                 (strcmp(actual->apellidoEstudiante, apellidoEstudiante)== 0)){
-            printf("\nEstudiante encontrado: %s\n",actual->nombreEstudiante, actual->apellidoEstudiante);
             return actual;
         }
         actual = actual->sig;
     }
-    printf("\nEl estudiante no se encontró\n");
+    printf("\nEl estudiante no se encontro\n");
     return NULL;
 }
+
 //funcion para buscar estudiantes por rango etario
 Estudiante *buscarPorRangoEtario(Estudiante *lista, int edadMin, int edadMax){
 
@@ -84,13 +82,6 @@ Estudiante *buscarPorRangoEtario(Estudiante *lista, int edadMin, int edadMax){
     return NULL;
 }
 
-void imprimirListaEstudiantes(Estudiante *lista){
-    while(lista!= NULL){
-        printf("%s %s \n", lista->nombreEstudiante, lista->apellidoEstudiante);
-        lista = lista->sig;
-    }
-}
-
 int cantidadDeEstudiantes(Estudiante *lista) {
     int contador = 0;
     while(lista != NULL){
@@ -100,3 +91,9 @@ int cantidadDeEstudiantes(Estudiante *lista) {
     return contador;
 }
 
+void imprimirListaEstudiantes(Estudiante *lista){
+    while(lista!= NULL){
+        printf("%s %s \n", lista->nombreEstudiante, lista->apellidoEstudiante);
+        lista = lista->sig;
+    }
+}
